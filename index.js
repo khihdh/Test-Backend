@@ -111,8 +111,15 @@ app.get('/products/:id', (req,res) =>{
 //méthode POST
 app.post('/products', (req,res) => {
 
-        //Vérification que le produit ajouté a le bon format
+    const id = parseInt(req.body.id);
+    let existingProduct = products.data.find(product => product.id === id);
 
+    //Vérification qu'un produit avec une id similaire n'existe pas
+    if (existingProduct) {
+        return res.status(400).json({ message: "Cette ID est déjà utilisé" });
+    }
+
+    //Vérification que le produit ajouté a le bon format
     if (!verifyPostProductData(req.body)) {
         return res.status(400).json({ message: 'Les données du produit sont invalides.' });
     }
