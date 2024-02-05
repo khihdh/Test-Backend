@@ -29,6 +29,47 @@ const saveChanges = () => {
     });
 };
 
+// Fonction de vérification du format des données du produit pour la méthode post
+const verifyPostProductData = (data) => {
+    const requiredFields = ['id', 'code', 'name', 'description', 'price', 'quantity', 'inventoryStatus', 'category', 'image', 'rating'];
+    
+    // Vérification que tous les champs requis sont présents
+    for (let field of requiredFields) {
+        if (!(field in data)) {
+            return false;
+        }
+    }
+
+    // Vérification qu'il n'y est pas de champs en trop
+    for (let field in data) {
+        if (!requiredFields.includes(field)) {
+            return false;
+        }
+    }
+
+    return true;
+};
+
+// Fonction de vérification du format des données du produit pour la méthode post
+const verifyPatchProductData = (data) => {
+    const requiredFields = ['code', 'name', 'description', 'price', 'quantity', 'inventoryStatus', 'category', 'image', 'rating'];
+    
+    // Vérification que tous les champs requis sont présents
+    for (let field of requiredFields) {
+        if (!(field in data)) {
+            return false;
+        }
+    }
+
+    // Vérification qu'il n'y est pas de champs en trop
+    for (let field in data) {
+        if (!requiredFields.includes(field)) {
+            return false;
+        }
+    }
+
+    return true;
+};
 
 //méthodes GET
 app.get('/products', (req,res) =>
@@ -44,10 +85,17 @@ app.get('/products/:id', (req,res) =>{
 
 //méthode POST
 app.post('/products', (req,res) => {
-        products.data.push(req.body);
 
-        saveChanges();
-        res.status(200).json(products);
+        //Vérification que le produit ajouté a le bon format
+
+    if (!verifyPostProductData(req.body)) {
+        return res.status(400).json({ message: 'Les données du produit sont invalides.' });
+    }
+
+    products.data.push(req.body);
+
+    saveChanges();
+    res.status(200).json(products);
 });
 
 //méthode DELETE
@@ -65,15 +113,22 @@ app.patch('/products/:id', (req,res) => {
     const id = parseInt(req.params.id);
     let product = products.data.find(product => product.id === id);
 
-    product.code =req.body.code;
-    product.name =req.body.name;
-    product.description =req.body.description;
-    product.price =req.body.price;
-    product.quantity =req.body.quantity;
-    product.inventoryStatus =req.body.inventoryStatus;
-    product.category =req.body.category;
-    product.image =req.body.image;
-    product.rating =req.body.rating;
+    //Vérification que le produit existe
+    if (!product) {
+        return res.status(404).json({ message: "Produit non trouvé." });
+    }
+
+    //Vérification que le produit a le bon format
+    if (!verifyPatchProductData(req.body)) {
+        return res.status(400).json({ message: 'Les données du produit sont invalides.' });
+    }
+
+    // Mise à jour des propriétés du produit
+    for (let key in req.body) {
+        if (key in product) {
+            product[key] = req.body[key];
+        }
+    }
 
     saveChanges();
     res.status(200).json(product)

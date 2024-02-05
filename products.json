@@ -2,11 +2,11 @@
   "data": [
     {
       "id": 1000,
-      "code": "f230fh0g3",
+      "code": "hhhhhhhhh",
       "name": "Bamboo Watch",
       "description": "Product Description",
       "image": "bamboo-watch.jpg",
-      "price": 65,
+      "price": 650,
       "category": "Accessories",
       "quantity": 24,
       "inventoryStatus": "INSTOCK",
@@ -359,6 +359,54 @@
       "quantity": 25,
       "inventoryStatus": "INSTOCK",
       "rating": 8
+    },
+    {
+      "id": 1,
+      "code": "f230fh0g3",
+      "name": "Bamboo Watch",
+      "description": "Product Description",
+      "image": "bamboo-watch.jpg",
+      "price": 65,
+      "category": "Accessories",
+      "quantity": 24,
+      "inventoryStatus": "INSTOCK",
+      "rating": 5
+    },
+    {
+      "id": 1,
+      "code": "f230fh0g3",
+      "name": "Bamboo Watch",
+      "description": "Product Description",
+      "image": "bamboo-watch.jpg",
+      "price": 65,
+      "category": "Accessories",
+      "quantity": 24,
+      "inventoryStatus": "INSTOCK",
+      "rating": 5
+    },
+    {
+      "id": 1,
+      "code": "",
+      "name": "Bamboo Watch",
+      "description": "Product Description",
+      "image": "bamboo-watch.jpg",
+      "price": 65,
+      "category": "Accessories",
+      "quantity": 24,
+      "inventoryStatus": "INSTOCK",
+      "rating": 5
+    },
+    {
+      "id": 1,
+      "code": "f230fh0g3",
+      "name": "Bamboo Watch",
+      "description": "Product Description",
+      "image": "bamboo-watch.jpg",
+      "price": 65,
+      "category": "Accessories",
+      "quantity": 24,
+      "inventoryStatus": "INSTOCK",
+      "rating": 5
     }
   ]
 }
