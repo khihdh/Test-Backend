@@ -4,10 +4,10 @@ const app = express();
 
 const products = require('./assets/products.json');
 
-app.use(express.json()); //Appel de la méthode express.json() pour parser
+app.use(express.json()); //Call express.json() method to parse
 
 app.listen(8080, () => {
-    console.log('Serveur ouvert sur le port 8080');
+    console.log('Server open on port 8080');
 });
 
 class Product {
@@ -23,29 +23,29 @@ class Product {
     rating;
   };
 
-// Fonction pour sauvegarder les modifications dans le fichier JSON
+// Function to save changes in the JSON file
 const saveChanges = (changes) => {
     fs.writeFile('./assets/products.json', JSON.stringify(changes, null, 2), (err) => {
         if (err) {
-            console.error('Erreur lors de la modification du fichier :', err);
+            console.error('Error while modifying file :', err);
             return;
         }
-        console.log('Modifications faites avec succès');
+        console.log('Modifications made successfully');
     });
 };
 
-// Fonction de vérification du format des données du produit pour la méthode post
+// Product data format verification function for the post method
 const verifyPostProductData = (data) => {
     const requiredFields = ['id', 'code', 'name', 'description', 'price', 'quantity', 'inventoryStatus', 'category', 'image', 'rating'];
     
-    // Vérification que tous les champs requis sont présents
+    // Check that all required fields are present
     for (let field of requiredFields) {
         if (!(field in data)) {
             return false;
         }
     }
 
-    // Vérification qu'il n'y est pas de champs en trop
+    // Check for excess fields
     for (let field in data) {
         if (!requiredFields.includes(field)) {
             return false;
@@ -55,18 +55,18 @@ const verifyPostProductData = (data) => {
     return true;
 };
 
-// Fonction de vérification du format des données du produit pour la méthode post
+// Product data format verification function for the post method
 const verifyPatchProductData = (data) => {
     const requiredFields = ['code', 'name', 'description', 'price', 'quantity', 'inventoryStatus', 'category', 'image', 'rating'];
     
-    // Vérification que tous les champs requis sont présents
+    // Check that all required fields are present
     for (let field of requiredFields) {
         if (!(field in data)) {
             return false;
         }
     }
 
-    // Vérification qu'il n'y est pas de champs en trop
+    // Check for excess fields
     for (let field in data) {
         if (!requiredFields.includes(field)) {
             return false;
@@ -76,7 +76,7 @@ const verifyPatchProductData = (data) => {
     return true;
 };
 
-//méthodes GET
+//GET methods
 app.get('/products', (req,res) =>
     {res.status(200).json(products.data)}
 );
@@ -85,28 +85,28 @@ app.get('/products/:id', (req,res) =>{
     const id = parseInt(req.params.id);
     const product = products.data.find(product => product.id == id);
 
-    //Vérification que le produit existe
+    //Verify that the product exists
     if (!product) {
-        return res.status(404).json({ message: "Produit non trouvé." });
+        return res.status(404).json({ message: "Product not found" });
     }
 
     res.status(200).json(product);
 });
 
-//méthode POST
+//POST Methods
 app.post('/products', (req,res) => {
 
     const id = parseInt(req.body.id);
     let existingProduct = products.data.find(product => product.id === id);
 
-    //Vérification qu'un produit avec une id similaire n'existe pas
+    //Check that a product with a similar id does not exist
     if (existingProduct) {
-        return res.status(400).json({ message: "Cette ID est déjà utilisé" });
+        return res.status(400).json({ message: "This ID is already used" });
     }
 
-    //Vérification que le produit ajouté a le bon format
+    //Check that the added product has the right format
     if (!verifyPostProductData(req.body)) {
-        return res.status(400).json({ message: 'Les données du produit sont invalides.' });
+        return res.status(400).json({ message: 'Product data is invalid' });
     }
 
     products.data.push(req.body);
@@ -115,14 +115,14 @@ app.post('/products', (req,res) => {
     res.status(200).json(products);
 });
 
-//méthode DELETE
+//DELETE Methods
 app.delete('/products/:id', (req,res) => {
     const id = parseInt(req.params.id);
     let product = products.data.find(product => product.id === id);
 
-    //Vérification que le produit existe
+    //Verify that the product exists
     if (!product) {
-        return res.status(404).json({ message: "Produit non trouvé." });
+        return res.status(404).json({ message: "Product not found" });
     }
 
     products.data.splice(products.data.indexOf(product),1);
@@ -131,22 +131,22 @@ app.delete('/products/:id', (req,res) => {
     res.status(200).json(products);
 });
 
-//méthode PATCH
+//Patch Methods
 app.patch('/products/:id', (req,res) => {
     const id = parseInt(req.params.id);
     let product = products.data.find(product => product.id === id);
 
-    //Vérification que le produit existe
+    //Verify that the product exists
     if (!product) {
-        return res.status(404).json({ message: "Produit non trouvé." });
+        return res.status(404).json({ message: "Product not found" });
     }
 
-    //Vérification que le produit a le bon format
+    //Check that the added product has the right format
     if (!verifyPatchProductData(req.body)) {
-        return res.status(404).json({ message: 'Les données du produit sont invalides.' });
+        return res.status(404).json({ message: 'Product data is invalid' });
     }
 
-    // Mise à jour des propriétés du produit
+    // Update product properties
     for (let key in req.body) {
         if (key in product) {
             product[key] = req.body[key];
