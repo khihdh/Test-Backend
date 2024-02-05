@@ -2,8 +2,33 @@ const express = require("express");
 const fs = require("fs");
 const app = express();
 
-const products = require('./products.json');
+const productsInit = require('./assets/products.json');
 app.use(express.json()); //Appel de la méthode express.json() pour parser
+
+//Initialisation du fichier Json
+const initializeJsonFile = async () => {
+    try {
+        await fs.promises.copyFile('./assets/products.json', './products.json');
+        console.log('Fichier copié avec succès !');
+
+        //récupération des données du fichier Json
+        products = require('./products.json');
+
+        console.log('Données chargées avec succès !');
+
+        // Démarrer le serveur Express une fois que les données sont chargées
+        app.listen(8080, () => {
+            console.log('Serveur ouvert sur le port 8080');
+        });
+    } catch (err) {
+        console.error('Erreur lors de l\'initialisation du fichier JSON :', err);
+    }
+};
+
+let products;
+initializeJsonFile();
+
+//app.listen(8080, () => {  console.log('Serveur ouvert sur le port 8080') });
 
 class Product {
     id;
@@ -19,8 +44,8 @@ class Product {
   };
 
 // Fonction pour sauvegarder les modifications dans le fichier JSON
-const saveChanges = () => {
-    fs.writeFile('./products.json', JSON.stringify(products, null, 2), (err) => {
+const saveChanges = (changes) => {
+    fs.writeFile('./products.json', JSON.stringify(changes, null, 2), (err) => {
         if (err) {
             console.error('Erreur lors de la modification du fichier :', err);
             return;
@@ -94,7 +119,7 @@ app.post('/products', (req,res) => {
 
     products.data.push(req.body);
 
-    saveChanges();
+    saveChanges(products);
     res.status(200).json(products);
 });
 
@@ -104,7 +129,7 @@ app.delete('/products/:id', (req,res) => {
     let product = products.data.find(product => product.id === id);
     products.data.splice(products.data.indexOf(product),1);
 
-    saveChanges();
+    saveChanges(products);
     res.status(200).json(products);
 });
 
@@ -130,10 +155,7 @@ app.patch('/products/:id', (req,res) => {
         }
     }
 
-    saveChanges();
+    saveChanges(products);
     res.status(200).json(product)
 });
-
-
-app.listen(8080, () => {  console.log('Serveur ouvert') });
 
