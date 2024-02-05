@@ -85,6 +85,11 @@ app.get('/products/:id', (req,res) =>{
     const id = parseInt(req.params.id);
     const product = products.data.find(product => product.id == id);
 
+    //Vérification que le produit existe
+    if (!product) {
+        return res.status(404).json({ message: "Produit non trouvé." });
+    }
+
     res.status(200).json(product);
 });
 
