@@ -11,17 +11,20 @@ This Node.js/Express backend provides APIs for managing products. It includes fu
    Clone this repository to your local machine using the following command: 
    - git clone https://github.com/khihdh/Test-Backend.git
 
-
 3. **Install Dependencies:**
    Navigate to the project directory and install the required dependencies using npm install.
 
-4. **Run the Server:**
+4. **Reset the Data source:**
+   The data source is a Json file called products.json located in the assets directory.
+   You can reset the data source using a PowerShell script called productsReset.js1, also located in the assets directory.
+
+5. **Run the Server:**
    Start the server by running:
     - node index.js
 
    The server will run on port 8080 by default. You can change the port in the `app.listen()` method in `server.js` if needed.
 
-5. **Testing Endpoints:**
+6. **Testing Endpoints:**
     You can test the API endpoints using tools like Postman.
     The available endpoints are:
     - `GET /products`: Retrieve all products.
