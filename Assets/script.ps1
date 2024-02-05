@@ -1,3 +1,4 @@
+@"
 {
   "data": [
     {
@@ -362,3 +363,5 @@
     }
   ]
 }
+"@ | Out-File -FilePath products.json -Encoding utf8
+Write-Host "File created successfully."

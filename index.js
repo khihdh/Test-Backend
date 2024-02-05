@@ -2,33 +2,13 @@ const express = require("express");
 const fs = require("fs");
 const app = express();
 
-const productsInit = require('./assets/products.json');
+const products = require('./assets/products.json');
+
 app.use(express.json()); //Appel de la méthode express.json() pour parser
 
-//Initialisation du fichier Json
-const initializeJsonFile = async () => {
-    try {
-        await fs.promises.copyFile('./assets/products.json', './products.json');
-        console.log('Fichier copié avec succès !');
-
-        //récupération des données du fichier Json
-        products = require('./products.json');
-
-        console.log('Données chargées avec succès !');
-
-        // Démarrer le serveur Express une fois que les données sont chargées
-        app.listen(8080, () => {
-            console.log('Serveur ouvert sur le port 8080');
-        });
-    } catch (err) {
-        console.error('Erreur lors de l\'initialisation du fichier JSON :', err);
-    }
-};
-
-let products;
-initializeJsonFile();
-
-//app.listen(8080, () => {  console.log('Serveur ouvert sur le port 8080') });
+app.listen(8080, () => {
+    console.log('Serveur ouvert sur le port 8080');
+});
 
 class Product {
     id;
@@ -45,7 +25,7 @@ class Product {
 
 // Fonction pour sauvegarder les modifications dans le fichier JSON
 const saveChanges = (changes) => {
-    fs.writeFile('./products.json', JSON.stringify(changes, null, 2), (err) => {
+    fs.writeFile('./assets/products.json', JSON.stringify(changes, null, 2), (err) => {
         if (err) {
             console.error('Erreur lors de la modification du fichier :', err);
             return;
