@@ -134,6 +134,12 @@ app.post('/products', (req,res) => {
 app.delete('/products/:id', (req,res) => {
     const id = parseInt(req.params.id);
     let product = products.data.find(product => product.id === id);
+
+    //Vérification que le produit existe
+    if (!product) {
+        return res.status(404).json({ message: "Produit non trouvé." });
+    }
+
     products.data.splice(products.data.indexOf(product),1);
 
     saveChanges(products);
@@ -152,7 +158,7 @@ app.patch('/products/:id', (req,res) => {
 
     //Vérification que le produit a le bon format
     if (!verifyPatchProductData(req.body)) {
-        return res.status(400).json({ message: 'Les données du produit sont invalides.' });
+        return res.status(404).json({ message: 'Les données du produit sont invalides.' });
     }
 
     // Mise à jour des propriétés du produit

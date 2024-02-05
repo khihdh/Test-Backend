@@ -349,16 +349,16 @@
       "rating": 5
     },
     {
-      "id": 1,
-      "code": "f230fh0g3",
-      "name": "Bamboo Watch",
+      "id": 1029,
+      "code": "gwuby345v",
+      "name": "Yoga Set",
       "description": "Product Description",
-      "image": "bamboo-watch.jpg",
-      "price": 65,
-      "category": "Accessories",
-      "quantity": 24,
+      "image": "yoga-set.jpg",
+      "price": 20,
+      "category": "Fitness",
+      "quantity": 25,
       "inventoryStatus": "INSTOCK",
-      "rating": 5
+      "rating": 8
     }
   ]
 }
