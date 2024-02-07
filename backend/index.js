@@ -68,7 +68,7 @@ const verifyPatchProductData = (data) => {
 app.get('/products', (req,res) =>{
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200'); //needed because otherwise angular won't accept the  answer
     res.status(200).json(products.data);
-    console.log('get used');
+    console.log('Get method used');
 });
 
 app.get('/products/:id', (req,res) =>{
@@ -89,7 +89,8 @@ app.post('/products', (req,res) => {
     const id = parseInt(req.body.id);
     let existingProduct = products.data.find(product => product.id === id);
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200'); //needed because otherwise angular won't accept the  answer
-    console.log("post");
+    console.log("POST method used");
+
     //Check that a product with a similar id does not exist
     if (existingProduct) {
         return res.status(400).json({ message: "This ID is already used" });
@@ -97,7 +98,6 @@ app.post('/products', (req,res) => {
 
     //Check that the added product has the right format
     if (!verifyPostProductData(req.body)) {
-        console.log(req.body);
         return res.status(400).json({ message: 'Product data is invalid' });
     }
 
@@ -112,6 +112,7 @@ app.delete('/products/:id', (req,res) => {
     const id = parseInt(req.params.id);
     let product = products.data.find(product => product.id === id);
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200'); //needed because otherwise angular won't accept the  answer
+    console.log("DELETE method used");
 
     //Verify that the product exists
     if (!product) {
@@ -129,6 +130,7 @@ app.patch('/products/:id', (req,res) => {
     const id = parseInt(req.params.id);
     let product = products.data.find(product => product.id === id);
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200'); //needed because otherwise angular won't accept the  answer
+    console.log("PATCH method used");
 
     //Verify that the product exists
     if (!product) {
