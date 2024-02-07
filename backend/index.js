@@ -38,18 +38,11 @@ const saveChanges = (changes) => {
 
 // Product data format verification function for the post method
 const verifyPostProductData = (data) => {
-    const requiredFields = ['id', 'code', 'name', 'description', 'price', 'quantity', 'inventoryStatus', 'category', 'image', 'rating'];
+    const requiredFields = ['id', 'code', 'name', 'description', 'price', 'quantity', 'inventoryStatus', 'category'];
     
     // Check that all required fields are present
     for (let field of requiredFields) {
         if (!(field in data)) {
-            return false;
-        }
-    }
-
-    // Check for excess fields
-    for (let field in data) {
-        if (!requiredFields.includes(field)) {
             return false;
         }
     }

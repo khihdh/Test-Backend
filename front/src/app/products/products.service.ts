@@ -16,6 +16,15 @@ export class ProductsService {
 
     constructor(private http: HttpClient) { }
 
+    getLastProductId(): number {
+        if (ProductsService.productslist && ProductsService.productslist.length > 0) {
+            // Get the ID of the last element in the productslist array
+            return ProductsService.productslist[ProductsService.productslist.length - 1].id;
+        } else {
+            return 1; // Return 1 if productslist is empty
+        }
+    }
+
     getProducts(): Observable<Product[]> {
         if( ! ProductsService.productslist )
         {
@@ -34,7 +43,8 @@ export class ProductsService {
     }
 
     create(prod: Product): Observable<Product[]> {
-
+        const id = this.getLastProductId();
+        prod.id=id+1;
         this.http.post<any>(`${this.apiUrl}/products`, prod).subscribe(data => {} );
         ProductsService.productslist.push(prod);
         this.products$.next(ProductsService.productslist);
