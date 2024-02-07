@@ -8,8 +8,8 @@ const products = require('./assets/products.json');
 app.use(express.json()); //Call express.json() method to parse
 app.use(cors());
 
-app.listen(8080, () => {
-    console.log('Server open on port 8080');
+app.listen(3000, () => {
+    console.log('Server open on port 3000');
 });
 
 class Product {

@@ -9,7 +9,7 @@ import { catchError, tap } from 'rxjs/operators';
 })
 export class ProductsService {
 
-    private apiUrl = 'http://localhost:8080';
+    private apiUrl = 'http://localhost:3000';
 
     private static productslist: Product[] = null;
     private products$: BehaviorSubject<Product[]> = new BehaviorSubject<Product[]>([]);

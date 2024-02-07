@@ -22,7 +22,7 @@ This Node.js/Express backend provides APIs for managing products. It includes fu
    Start the server by running:
     - node index.js
 
-   The server will run on port 8080 by default. You can change the port in the `app.listen()` method in `server.js` if needed.
+   The server will run on port 3000 by default. You can change the port in the `app.listen()` method in `server.js` if needed.
 
 6. **Testing Endpoints:**
     You can test the API endpoints using tools like Postman.
@@ -30,10 +30,15 @@ This Node.js/Express backend provides APIs for managing products. It includes fu
     - `GET /products`: Retrieve all products.
     - `GET /products/:id`: Retrieve details of a specific product by ID.
     - `POST /products`: Create a new product.
+         To use the post method your element needs to have the 'id', 'code', 'name', 'description', 'price', 'quantity', 'inventoryStatus', 'category' fields.
     - `PATCH /products/:id`: Update details of a product.
+         To use the patch method your element needs to have the 'code', 'name', 'description', 'price', 'quantity', 'inventoryStatus', 'category' fields.
     - `DELETE /products/:id`: Remove a product.
 
     There are Postman Tests in the PostmanTests directory.
+
+7. **Testing Endpoints with frontEnd:**
+   You can also test the endpoints with the frontend provided in the github repoitory
 
 ## JSON Data Structure
 
