@@ -1,0 +1,204 @@
+{
+	"info": {
+		"_postman_id": "0f6397e6-f097-4a6b-8e13-4f383939c014",
+		"name": "Test-backend Postman Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24064215"
+	},
+	"item": [
+		{
+			"name": "products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "products/1000",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/products/1000",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"products",
+						"1000"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "products/123",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/products/123",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"products",
+						"123"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "products \"id=1\"",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 1,\r\n    \"code\": \"hhhhhhhhh\",\r\n    \"name\": \"product test\",\r\n    \"description\": \"Product Description\",\r\n    \"image\": \"bamboo-watch.jpg\",\r\n    \"price\": 65,\r\n    \"category\": \"Accessories\",\r\n    \"quantity\": 24,\r\n    \"inventoryStatus\": \"INSTOCK\",\r\n    \"rating\": 5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "products/1",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/products/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"products",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "products/1000",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"code\": \"hhhhhhhhh\",\r\n    \"name\": \"Bamboo Watch\",\r\n    \"description\": \"Product Description\",\r\n    \"image\": \"bamboo-watch.jpg\",\r\n    \"price\": 650,\r\n    \"category\": \"Accessories\",\r\n    \"quantity\": 24,\r\n    \"inventoryStatus\": \"INSTOCK\",\r\n    \"rating\": 5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/products/1000",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"products",
+						"1000"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "products/123",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"code\": \"hhhhhhhhh\",\r\n    \"name\": \"Bamboo Watch\",\r\n    \"description\": \"Product Description\",\r\n    \"image\": \"bamboo-watch.jpg\",\r\n    \"price\": 650,\r\n    \"category\": \"Accessories\",\r\n    \"quantity\": 24,\r\n    \"inventoryStatus\": \"INSTOCK\",\r\n    \"rating\": 5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/products/123",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"products",
+						"123"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "products/1000 reset",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"code\": \"f230fh0g3\",\r\n    \"name\": \"Bamboo Watch\",\r\n    \"description\": \"Product Description\",\r\n    \"image\": \"bamboo-watch.jpg\",\r\n    \"price\": 65,\r\n    \"category\": \"Accessories\",\r\n    \"quantity\": 24,\r\n    \"inventoryStatus\": \"INSTOCK\",\r\n    \"rating\": 5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/products/1000",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"products",
+						"1000"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
