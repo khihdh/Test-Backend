@@ -1,10 +1,12 @@
 const express = require("express");
 const fs = require("fs");
 const app = express();
+const cors = require('cors');
 
 const products = require('./assets/products.json');
 
 app.use(express.json()); //Call express.json() method to parse
+app.use(cors());
 
 app.listen(8080, () => {
     console.log('Server open on port 8080');
@@ -57,7 +59,7 @@ const verifyPostProductData = (data) => {
 
 // Product data format verification function for the post method
 const verifyPatchProductData = (data) => {
-    const requiredFields = ['code', 'name', 'description', 'price', 'quantity', 'inventoryStatus', 'category', 'image', 'rating'];
+    const requiredFields = ['code', 'name', 'description', 'price', 'quantity', 'inventoryStatus', 'category'];
     
     // Check that all required fields are present
     for (let field of requiredFields) {
@@ -66,25 +68,20 @@ const verifyPatchProductData = (data) => {
         }
     }
 
-    // Check for excess fields
-    for (let field in data) {
-        if (!requiredFields.includes(field)) {
-            return false;
-        }
-    }
-
     return true;
 };
 
 //GET methods
-app.get('/products', (req,res) =>
-    {res.status(200).json(products.data)}
-);
+app.get('/products', (req,res) =>{
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200'); //needed because otherwise angular won't accept the  answer
+    res.status(200).json(products.data);
+    console.log('get used');
+});
 
 app.get('/products/:id', (req,res) =>{
     const id = parseInt(req.params.id);
     const product = products.data.find(product => product.id == id);
-
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200'); //needed because otherwise angular won't accept the  answer
     //Verify that the product exists
     if (!product) {
         return res.status(404).json({ message: "Product not found" });
@@ -98,7 +95,8 @@ app.post('/products', (req,res) => {
 
     const id = parseInt(req.body.id);
     let existingProduct = products.data.find(product => product.id === id);
-
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200'); //needed because otherwise angular won't accept the  answer
+    console.log("post");
     //Check that a product with a similar id does not exist
     if (existingProduct) {
         return res.status(400).json({ message: "This ID is already used" });
@@ -106,6 +104,7 @@ app.post('/products', (req,res) => {
 
     //Check that the added product has the right format
     if (!verifyPostProductData(req.body)) {
+        console.log(req.body);
         return res.status(400).json({ message: 'Product data is invalid' });
     }
 
@@ -119,6 +118,7 @@ app.post('/products', (req,res) => {
 app.delete('/products/:id', (req,res) => {
     const id = parseInt(req.params.id);
     let product = products.data.find(product => product.id === id);
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200'); //needed because otherwise angular won't accept the  answer
 
     //Verify that the product exists
     if (!product) {
@@ -135,6 +135,7 @@ app.delete('/products/:id', (req,res) => {
 app.patch('/products/:id', (req,res) => {
     const id = parseInt(req.params.id);
     let product = products.data.find(product => product.id === id);
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200'); //needed because otherwise angular won't accept the  answer
 
     //Verify that the product exists
     if (!product) {
